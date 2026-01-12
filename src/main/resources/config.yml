@@ -23,8 +23,8 @@
 # Default: true
 enabled: true
 # Permission required to use sneak + jump
-# Default: sneakjump.jump
-permission: sneakjump.jump
+# Default: empty string, which means no permission required
+permission: ""
 
 # Minecraft gravity approximation used in jump calculation
 # Default: 0.0882
@@ -35,14 +35,21 @@ jump-height: 2
 # Multiplier applied to vertical velocity each tick
 # Default: 0.997
 multiplier: 0.997
+# Cooldown between jumps in milliseconds
+# Default: 3000 milliseconds (3 seconds)
+cooldown: 3000
 # List of worlds where SneakJump is active
-# Only players in these worlds will be able to sneak + jump
+# Only players in these worlds will be able to sneak and jump
 # Default: ["world", "world_nether", "world_the_end"]
 allowed-worlds:
   - world
   - world_nether
   - world_the_end
 
+# Cooldown message settings (ACTIONBAR, CHAT, SYSTEM, or nothing)
+# Default: ACTIONBAR
+cooldown-message-type: "ACTIONBAR"
+cooldown-message: "§8[§aSneakJump§8] §fWait {cooldown} milliseconds before jumping again."
 # Shows useful commands
 # {0} replaces with a command label
 # /sneakjump help

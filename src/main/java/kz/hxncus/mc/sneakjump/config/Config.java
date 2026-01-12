@@ -1,6 +1,7 @@
 package kz.hxncus.mc.sneakjump.config;
 
 import kz.hxncus.mc.sneakjump.SneakJump;
+import net.md_5.bungee.api.ChatMessageType;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.HashSet;
@@ -16,7 +17,9 @@ import java.util.Set;
 public class Config {
     private final SneakJump plugin;
     private FileConfiguration config;
+
     private Set<String> allowedWorlds;
+    private List<String> helpMessages;
 
     public Config(SneakJump plugin) {
         this.plugin = plugin;
@@ -27,6 +30,7 @@ public class Config {
         this.plugin.reloadConfig();
         this.config = plugin.getConfig();
         this.allowedWorlds = null;
+        this.helpMessages = null;
     }
 
     public boolean isEnabled() {
@@ -34,7 +38,7 @@ public class Config {
     }
 
     public double getGravity() {
-        return config.getDouble("gravity", 0.8);
+        return config.getDouble("gravity", 0.0882);
     }
 
     public int getJumpHeight() {
@@ -42,7 +46,23 @@ public class Config {
     }
 
     public double getMultiplier() {
-        return config.getDouble("multiplier", 0.99);
+        return config.getDouble("multiplier", 0.997);
+    }
+
+    public long getCooldown() {
+        return config.getLong("cooldown", 3000);
+    }
+
+    public ChatMessageType getCooldownMessageType() {
+        try {
+            return ChatMessageType.valueOf(config.getString("cooldown-message-type"));
+        } catch (IllegalArgumentException ignored) {
+            return null;
+        }
+    }
+
+    public String getCooldownMessage() {
+        return config.getString("cooldown-message");
     }
 
     public Set<String> getAllowedWorlds() {
@@ -61,6 +81,9 @@ public class Config {
     }
 
     public List<String> getHelpMessages() {
-        return config.getStringList("help-messages");
+        if (helpMessages == null) {
+            helpMessages = config.getStringList("help-messages");
+        }
+        return helpMessages;
     }
 }
